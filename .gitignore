@@ -1,0 +1,12 @@
+# Compiled executables (Windows)
+*.exe
+
+# Compiled executables (Mac/Linux)
+lost_item_list_example
+study_group_list
+
+# Intermediate object files
+*.o
+
+# Editor configuration
+.vscode/
