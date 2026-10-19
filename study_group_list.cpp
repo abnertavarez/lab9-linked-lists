@@ -20,8 +20,9 @@ private:
     {
         string groupCode; // Store one study group code.
         int meetingRoom;  // Store the meeting room number.
-        Node *next;       // Store the address of the next node.
-    }
+        node *next;       // Store the address of the next node.
+    }; // <-- Faltaba este punto y coma aquí
+
     // TODO (Part C): Declare a Node *head data member for the first node address.
     node *head; // Store the first node address or nullptr.
 
@@ -30,17 +31,18 @@ private:
 
 public:
     // TODO (Part C): Write a constructor that creates an empty list and sets groupCount to zero.
-struct StudyGroupList()
+    StudyGroupList() // <-- Se quitó "struct"
     {
         head = nullptr;  // A new list begins with no nodes.
         groupCount = 0;  // Initialize groupCount to zero.
     }
+
     // ===== Resolve these TODOs later (Part D) =====
 
     // TODO (Part D): Write addGroup. It receives a group code and room number, adds one node at the end, and updates groupCount.
     void addGroup(const string& newGroupCode, int newMeetingRoom)
     {
-        Node *newNode = new Node;
+        node *newNode = new node; // <-- Cambiado de Node a node (minúscula)
         newNode->groupCode = newGroupCode;
         newNode->meetingRoom = newMeetingRoom;
         newNode->next = nullptr;
@@ -52,7 +54,7 @@ struct StudyGroupList()
             return;
         }
 
-        Node *currentNode = head;
+        node *currentNode = head;
 
         while (currentNode->next != nullptr)
         {
@@ -62,20 +64,22 @@ struct StudyGroupList()
         currentNode->next = newNode;
         groupCount++;
     }
+
     // TODO (Part D): Write displayGroups as a const member function.
     void displayGroups() const
     {
-        Node *currentNode = head;
+        node *currentNode = head;
 
         while (currentNode != nullptr)
         {
-            cout << "Group Code: " << currentNode->groupCode 
-                 << ", Meeting Room: " << currentNode->meetingRoom << endl;
+            cout << "Study group: " << currentNode->groupCode 
+                 << " | Room: " << currentNode->meetingRoom << endl;
             currentNode = currentNode->next;
         }
     }
+
     // TODO (Part D): Write size as a const member function that returns groupCount.
-    void size() const
+    int size() const
     {
         return groupCount;
     }
@@ -83,6 +87,22 @@ struct StudyGroupList()
     // ===== Resolve these TODOs later (Part E) =====
 
     // TODO (Part E): Write containsGroup as a const member function that searches by group code.
+    bool containsGroup(const string& targetGroupCode) const
+    {
+        node *currentNode = head;
+
+        while (currentNode != nullptr)
+        {
+            if (currentNode->groupCode == targetGroupCode)
+            {
+                return true;
+            }
+
+            currentNode = currentNode->next;
+        }
+
+        return false;
+    }
 };
 
 int main()
@@ -92,9 +112,20 @@ int main()
     // ===== Resolve these TODOs later (Part E) =====
 
     // TODO (Part E): Create a StudyGroupList object.
+    StudyGroupList myStudyGroups; // <-- StudyGroupList con S mayúscula
+
     // TODO (Part E): Add three dummy groups with different codes and room numbers.
+    myStudyGroups.addGroup("SG-101", 201);
+    myStudyGroups.addGroup("SG-102", 202);
+    myStudyGroups.addGroup("SG-103", 203);
+
     // TODO (Part E): Display every stored group and print the result of size().
+    myStudyGroups.displayGroups();
+    cout << "Number of study groups: " << myStudyGroups.size() << endl;
+
     // TODO (Part E): Search for one stored group code and one missing group code; print both bool results.
+    cout << "Contains SG-102: " << myStudyGroups.containsGroup("SG-102") << endl;
+    cout << "Contains SG-999: " << myStudyGroups.containsGroup("SG-999") << endl;
 
     return 0;
 }
