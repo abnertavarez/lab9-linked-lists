@@ -38,8 +38,47 @@ struct StudyGroupList()
     // ===== Resolve these TODOs later (Part D) =====
 
     // TODO (Part D): Write addGroup. It receives a group code and room number, adds one node at the end, and updates groupCount.
+    void addGroup(const string& newGroupCode, int newMeetingRoom)
+    {
+        Node *newNode = new Node;
+        newNode->groupCode = newGroupCode;
+        newNode->meetingRoom = newMeetingRoom;
+        newNode->next = nullptr;
+
+        if (head == nullptr)
+        {
+            head = newNode;
+            groupCount++;
+            return;
+        }
+
+        Node *currentNode = head;
+
+        while (currentNode->next != nullptr)
+        {
+            currentNode = currentNode->next;
+        }
+
+        currentNode->next = newNode;
+        groupCount++;
+    }
     // TODO (Part D): Write displayGroups as a const member function.
+    void displayGroups() const
+    {
+        Node *currentNode = head;
+
+        while (currentNode != nullptr)
+        {
+            cout << "Group Code: " << currentNode->groupCode 
+                 << ", Meeting Room: " << currentNode->meetingRoom << endl;
+            currentNode = currentNode->next;
+        }
+    }
     // TODO (Part D): Write size as a const member function that returns groupCount.
+    void size() const
+    {
+        return groupCount;
+    }
 
     // ===== Resolve these TODOs later (Part E) =====
 
